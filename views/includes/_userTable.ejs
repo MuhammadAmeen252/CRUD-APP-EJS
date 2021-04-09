@@ -23,7 +23,8 @@
         <td><%= users[i].createdAt %></td>  
         <td>
           <a href="/update?id=<%= users[i]._id %>" class="edit" title="Edit" data-toggle="tooltip"><i class="fas fa-edit ml-2"></i></a>
-          <a data-id="<%= users[i]._id %>" id='deleteUserBtn' class="delete ml-4" style="margin-left: 17px;" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt"></i></a>
+          <a data-id="<%= users[i]._id %>"  class="delete ml-4" style="margin-left: 17px;" title="Delete" >
+            <i class="fas fa-trash-alt"></i></a>
         </td>
       </tr>
       <% } %>

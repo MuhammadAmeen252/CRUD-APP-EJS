@@ -40,6 +40,34 @@ const search = (req, res, next) => {
     })
 };
 
+const filter = (req, res, next) => {
+    axios.get('http://localhost:3000/users/filter/'+req.query.searchQuery)
+    .then(function(response){
+        const data = response.data
+        if(!data){
+            data='No users to Display!'
+        }
+        res.render('index',{users : data})
+    })
+    .catch(e => {
+        res.send(e)
+    })
+};
+
+const searchAndFilter = (req, res, next) => {
+    axios.get('http://localhost:3000/users/search&filter/'+req.query.searchQuery)
+    .then(function(response){
+        const data = response.data
+        if(!data){
+            data='No users to Display!'
+        }
+        res.render('index',{users : data})
+    })
+    .catch(e => {
+        res.send(e)
+    })
+};
+
 //API Route controllers
 const addUser = async(req, res, next) => {
     if(!req.body){
@@ -131,6 +159,60 @@ const findUser = async(req,res) => {
         res.status(404).send(e.message)
     }
 }
+const filterUsers = async(req,res) => {
+    const query = req.params.query
+    let user =''
+    if(!query){
+        return res.send('No users to Display')
+    }
+    try{
+        if(query == 'adults'){
+            user = await User.find({age: { $gt: 17, $lt: 30 }})
+        }
+        else if(query == 'seniors'){
+            user = await User.find({age: { $gt: 30}})
+        }
+        else if(query == 'young'){
+            user = await User.find({age: { $gt: 5, $lt: 17 }})
+        }
+        else {
+            user = await User.find({'gender': query})
+        }
+           
+        res.send(user)
+    }
+    catch(e){
+        res.status(404).send(e.message)
+    }
+}
+const searchAndFilterUsers = async(req,res) => {
+    const query = req.params.query
+    const temp = query.split(',')
+    const userName = temp[0]
+    const filter = temp[1]
+    console.log('name '+ userName+' filter '+filter)
+    if(!query){
+        return res.send('No users to Display')
+    }
+    try{
+        if(filter == 'adults'){
+            user = await User.find({age: { $gt: 17, $lt: 30 },name:userName})
+        }
+        else if(filter == 'seniors'){
+            user = await User.find({age: { $gt: 30},name:userName})
+        }
+        else if(filter == 'young'){
+            user = await User.find({age: { $gt: 5, $lt: 17 },name:userName})
+        }
+        else {
+            user = await User.find({'gender': filter,name:userName})
+        }
+        res.send(user)
+    }
+    catch(e){
+        res.status(404).send(e.message)
+    }
+}
 
 
 module.exports = {
@@ -143,5 +225,9 @@ module.exports = {
     update,
     getUser,
     search,
-    findUser
+    findUser,
+    filter,
+    filterUsers,
+    searchAndFilter,
+    searchAndFilterUsers
 };

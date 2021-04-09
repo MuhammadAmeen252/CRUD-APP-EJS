@@ -31,8 +31,8 @@ $('#update_user').submit(function(event){
 })
 
 //deleting user
-$('#deleteUserBtn').click(function() {
-    var id =$(this).attr("data-id")
+$('table > tbody > tr > td > a.delete').click(function() {
+    var id =$('table > tbody > tr > td > a.delete').attr("data-id")
     var request = {
         "url":`http://localhost:3000/deleteUser/${id}`,
         "method":"DELETE",
@@ -46,15 +46,26 @@ $('#deleteUserBtn').click(function() {
 
 })
 
-//searching user
+//searching and filtering user
 $('#search-button').click(function() {
     var query = $('#search-input').val()
-    $('#search-input').val('')
-    if(query){
-        $('#allUsersBtn').css('visibility','visible')
+    var filter = $( "#user-filters option:selected" ).val();
+    var queryAndFilter = query+','+filter
+    //console.log('q&f  '+queryAndFilter)
+    if(query && filter){
+        window.location.href = `http://localhost:3000/search&Filter?searchQuery=${queryAndFilter}`
+    }
+    else if(query){
         window.location.href = 'http://localhost:3000/search?searchQuery='+query
         
     }
-    else
-    $('#errorSearch').text('Enter user name')
+    else if(filter){
+        window.location.href = 'http://localhost:3000/filter?searchQuery='+filter
+    }
+    else{
+        $('#errorSearch').text('Enter user name')
+    }
+    
+
 })
+

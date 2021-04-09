@@ -4,9 +4,24 @@
       
     </div>
 
+
+
+    <select name="Filters" id="user-filters" style="border-color: grey;">
+      <option value="" selected disabled hidden>Apply filters</option>
+      <optgroup label="Age">
+        <option value="adults">Adults</option>
+        <option value="young">Young</option>
+        <option value="seniors">Seniors</option>
+      </optgroup>
+      <optgroup label="Gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="others">Others</option>
+      </optgroup>
+    </select>
+
     <a id="search-button"  class="btn btn-primary">
       <i class="fas fa-search"></i>
     </a>
-
 </div>
 <p id="errorSearch" style="color: red;"></p>
