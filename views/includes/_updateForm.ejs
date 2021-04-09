@@ -1,0 +1,40 @@
+
+<div class="form-content ">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <strong>Name</strong><br>
+                <input type="hidden" name="id" class="form-control"  value="<%= user._id %>"/>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name *" value="<%= user.name %>" required/>
+            </div>
+            <div class="form-group mt-2">
+                <strong>Email</strong><br>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Your Email *" value="<%= user.email %> "required/>
+            </div>
+
+            <div class="form-group mt-2">
+                <strong>Age</strong><br>
+                <input type="text" name="age" id="age" class="form-control" placeholder="Your age *" value="<%= user.age %> " required/>
+            </div>
+            <div class="form-group mt-2">
+                <strong>Password</strong><br>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Your Password *" value="<%= user.password %>" required/>
+            </div>
+            <div class="form-group mt-2">
+                <strong>Gender</strong><br>
+                <input type="radio" id="male" name="gender" value="male" <%= user.gender =='male'?'checked':'' %> >
+                <label for="male">Male</label><br>
+                <input type="radio" id="female" name="gender" value="female"<%= user.gender =='female'?'checked':'' %> >
+                <label for="female">Female</label><br>
+                <input type="radio" id="other" name="gender" value="other" <%= user.gender =='other'?'checked':'' %> >
+                <label for="other">Other</label>
+            </div>
+            
+        
+        </div>
+        
+           
+    </div>
+    <button type="submit" class="btnSubmit mt-2">Submit</button>
+</div>
